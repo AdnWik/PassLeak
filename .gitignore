@@ -1,2 +1,4 @@
 /passleak_venv
 /PassLeak.code-workspace
+/.pytest_cache
+/passleak/__pycache__
