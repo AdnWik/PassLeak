@@ -14,7 +14,7 @@ class Password:
     @password.setter
     def password(self, value):
         """Password"""
-        if isinstance(value, str):
+        if len(value) >= 8:
             self._password = value
         else:
             self._password = None

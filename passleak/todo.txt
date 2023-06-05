@@ -1,1 +1,4 @@
-1.
+1. Minimum 8 znaków
+2. Minimum jedna cyfra 
+3. Minimum jeden znak specjalny
+4. musi zawierac wielkie i małe litery
