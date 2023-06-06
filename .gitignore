@@ -2,3 +2,5 @@
 /PassLeak.code-workspace
 /.pytest_cache
 /passleak/__pycache__
+/passleak/passwords.txt
+/passleak/safety.txt
