@@ -34,15 +34,15 @@ class Password:
 
     @staticmethod
     def check_length(value: str, min_char=8) -> bool:
-        #TODO:
-        """_summary_
+        """Check length of password
 
         Args:
-            value (str): _description_
-            min_char (int, optional): _description_. Defaults to 8.
+            value (str): password
+            min_char (int, optional): Minimum char amount in password.
+                                      Defaults to 8.
 
         Returns:
-            bool: _description_
+            bool: Check result (True - OK , False - NOK)
         """
 
         try:
@@ -55,14 +55,13 @@ class Password:
 
     @staticmethod
     def check_digit(value: str) -> bool:
-        #TODO:
-        """_summary_
+        """Check digit in password
 
         Args:
-            value (str): _description_
+            value (str): password
 
         Returns:
-            bool: _description_
+            bool: Check result (True - OK , False - NOK)
         """
 
         if len(re.findall('[0-9]', value)) > 0:
@@ -72,15 +71,15 @@ class Password:
 
     @staticmethod
     def check_letters(value: str) -> bool:
-        #TODO:
-        """_summary_
+        """Check big and small letter in password
 
         Args:
-            value (str): _description_
+            value (str): password
 
         Returns:
-            bool: _description_
+            bool: Check result (True - OK , False - NOK)
         """
+
         if len(re.findall('[A-Z]', value)) > 0:
             if len(re.findall('[a-z]', value)) > 0:
                 return True
@@ -91,14 +90,13 @@ class Password:
 
     @staticmethod
     def check_special_char(value: str) -> bool:
-        #TODO:
-        """_summary_
+        """Check special char in password
 
         Args:
-            value (str): _description_
+            value (str): password
 
         Returns:
-            bool: _description_
+            bool: Check result (True - OK , False - NOK)
         """
 
         value_split = set(re.split('', value))
