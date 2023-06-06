@@ -1,15 +1,21 @@
 from password import Password
 
 
-def test_password_values():
-    """Password different type of values test"""
-    value_int = 1
-    value_str = 'TEST'
+def test_password_values_ok():
+    """Good password test"""
+    value = '#123adcABC'
+
+    score = Password(value)
+
+    assert score.password == value
+
+
+def test_password_values_nok():
+    """Wrong password test"""
+    value_nok = 'password'
 
     score_none = Password()
-    score_int = Password(value_int)
-    score_str = Password(value_str)
+    score_nok = Password(value_nok)
 
     assert score_none.password is None
-    assert score_int.password is None
-    assert score_str.password == value_str
+    assert score_nok.password is None
