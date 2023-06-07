@@ -2,3 +2,16 @@
 2. Minimum jedna cyfra 
 3. Minimum jeden znak specjalny
 4. musi zawierac wielkie i małe litery
+
+5.Sprawdź hasło w dostepnych słownikach
+6. zahashuj hasło sha1
+7. sprawdz hasło w haveibeenpwnd.com
+
+
+.Zapisz swoje hasła do passwords.txt
+.jesli spełnia wszystkie wymogi dobrego hasła oraz nie wyciekło ani razu to zapisać do safety.txt
+
+
+dodatkowo:
+.zapis zapytań do pliku za pomoca loggera (nie zapisuj hashy)
+. stwórz paczke instalacyjna dla innych twoich projektów

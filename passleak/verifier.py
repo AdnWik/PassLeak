@@ -1,17 +1,59 @@
+import re
 from password import Password
 
 
 class Verifier:
+    #TODO: docstring
+    passwords = []
 
-    def __init__(self) -> None:
-        self.passwords = []
-
+    @classmethod
+    def load_passwords(cls) -> None:
+        #TODO: docstring
         with open('passwords.txt', 'r', encoding='utf-8') as file:
-            _passwords = file.read().split('\n')
+            for password in file.read().split('\n'):
+                cls.passwords.append(Password(password))
 
-        for password in _passwords:
-            self.passwords.append(Password(password))
+    @classmethod
+    def check_passwords(cls) -> None:
+        #TODO: docstring
+        for password in cls.passwords:
+            password.power = 0
+            cls.check_length(password)
+            cls.check_digit(password)
+            cls.check_letters(password)
+            cls.check_special_char(password)
 
-v1 = Verifier()
-for _ in v1.passwords:
-    print(_.password)
+    @classmethod
+    def show_all_passwords(cls) -> str:
+        message = ''
+        for password in cls.passwords:
+            message += f'{password}\n'
+        return message
+
+    @staticmethod
+    def check_length(password: object, min_char=8) -> None:
+        #TODO: docstring
+        if len(password.password) >= min_char:
+            password.power += 1
+
+    @staticmethod
+    def check_digit(password: object) -> None:
+        #TODO: docstring
+        if len(re.findall('[0-9]', password.password)) > 0:
+            password.power +=1
+
+    @staticmethod
+    def check_letters(password: object) -> None:
+        #TODO: docstring
+        if len(re.findall('[A-Z]', password.password)) > 0:
+            if len(re.findall('[a-z]', password.password)) > 0:
+                password.power +=1
+
+    @staticmethod
+    def check_special_char(password: object) -> None:
+        #TODO: docstring
+        value_split = set(re.split('', password.password))
+        value_no_special_char = set(re.findall('[a-zA-Z0-9_]', password.password))
+        special_char = value_split.symmetric_difference(value_no_special_char)
+        if len(special_char) > 1:
+            password.power += 1
