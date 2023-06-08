@@ -1,21 +1,25 @@
+"""Verifier class"""
 import re
 from password import Password
 
 
 class Verifier:
-    #TODO: docstring
+    """Verifier abstract"""
+
     passwords = []
 
     @classmethod
     def load_passwords(cls) -> None:
-        #TODO: docstring
+        """Load passwords from passwords.txt"""
+
         with open('passwords.txt', 'r', encoding='utf-8') as file:
             for password in file.read().split('\n'):
                 cls.passwords.append(Password(password))
 
     @classmethod
     def check_passwords(cls) -> None:
-        #TODO: docstring
+        """Verification of password requirements and leaks """
+
         for password in cls.passwords:
             password.power = 0
             cls.check_length(password)
@@ -25,6 +29,8 @@ class Verifier:
 
     @classmethod
     def show_all_passwords(cls) -> str:
+        """Show all loaded passwords"""
+
         message = ''
         for password in cls.passwords:
             message += f'{password}\n'
@@ -32,28 +38,36 @@ class Verifier:
 
     @staticmethod
     def check_length(password: object, min_char=8) -> None:
-        #TODO: docstring
+        """Verification of the number of characters"""
+
         if len(password.password) >= min_char:
             password.power += 1
 
     @staticmethod
     def check_digit(password: object) -> None:
-        #TODO: docstring
+        """Verifying the presence of a digit"""
+
         if len(re.findall('[0-9]', password.password)) > 0:
-            password.power +=1
+            password.power += 1
 
     @staticmethod
     def check_letters(password: object) -> None:
-        #TODO: docstring
+        """verifying the presence
+           of upper and lower case letters"""
+
         if len(re.findall('[A-Z]', password.password)) > 0:
             if len(re.findall('[a-z]', password.password)) > 0:
-                password.power +=1
+                password.power += 1
 
     @staticmethod
     def check_special_char(password: object) -> None:
-        #TODO: docstring
+        """verification of the presence
+           of a special character"""
+
         value_split = set(re.split('', password.password))
-        value_no_special_char = set(re.findall('[a-zA-Z0-9_]', password.password))
+        value_no_special_char = set(
+            re.findall('[a-zA-Z0-9_]', password.password))
+
         special_char = value_split.symmetric_difference(value_no_special_char)
         if len(special_char) > 1:
             password.power += 1

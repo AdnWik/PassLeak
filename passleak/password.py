@@ -1,3 +1,4 @@
+"""Password class"""
 
 
 class Password:
@@ -8,7 +9,9 @@ class Password:
         self.leaked = None
 
     def __repr__(self) -> str:
-        return f'Password: {self.password} Power: {self.power} Leaked: {self.leaked}'
+        return (f'Password: {self.password} Power: {self.power}'
+                f' Leaked: {self.leaked}')
 
     def __str__(self) -> str:
-        return f'Password: {self.password:<20} Power: {self.power}   Leaked: {self.leaked}'
+        return (f'Password: {self.password:<20} Power: {self.power}'
+                f'  Leaked: {self.leaked}')
