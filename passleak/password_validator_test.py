@@ -1,9 +1,11 @@
+"""Tests for PasswordValidator class"""
 from password import Password
 from password_validator import PasswordValidator
 
 
 def test_password_ok():
     """Good password test"""
+
     value = '#123adcABC^'
     password = Password(value)
     PasswordValidator.passwords.append(password)
@@ -15,7 +17,8 @@ def test_password_ok():
 
 
 def test_length_ok_password():
-    #TODO: docstring
+    """Length ok test"""
+
     value = 'Ab1#@!0c'
     password = Password(value)
     password.power = 0
@@ -27,7 +30,8 @@ def test_length_ok_password():
 
 
 def test_too_short_password():
-    #TODO: docstring
+    """Length nok test"""
+
     value = '!1cB'
     password = Password(value)
     password.power = 0
@@ -39,7 +43,8 @@ def test_too_short_password():
 
 
 def test_digit_in_password():
-    #TODO: docstring
+    """Digit in password ok test"""
+
     value = 'abcd1ABCDEF!#*^'
     password = Password(value)
     password.power = 0
@@ -51,7 +56,8 @@ def test_digit_in_password():
 
 
 def test_no_digit_in_password():
-    #TODO: docstring
+    """Digit in password nok test"""
+
     value = 'abcdABCDEF!#*^'
     password = Password(value)
     password.power = 0
@@ -63,7 +69,8 @@ def test_no_digit_in_password():
 
 
 def test_small_letters_in_password():
-    #TODO: docstring
+    """Small letter in password ok test"""
+
     value = 'aABCDEF123!#*^'
     password = Password(value)
     password.power = 0
@@ -75,7 +82,8 @@ def test_small_letters_in_password():
 
 
 def test_no_small_letters_in_password():
-    #TODO: docstring
+    """Small letter in password nok test"""
+
     value = 'ABCDEF123!#*^'
     password = Password(value)
     password.power = 0
@@ -87,7 +95,8 @@ def test_no_small_letters_in_password():
 
 
 def test_big_letters_in_password():
-    #TODO: docstring
+    """Big letter in password ok test"""
+
     value = 'Babcdef123!#*^'
     password = Password(value)
     password.power = 0
@@ -99,7 +108,8 @@ def test_big_letters_in_password():
 
 
 def test_no_big_letters_in_password():
-    #TODO: docstring
+    """Small letter in password nok test"""
+
     value = 'abcdef123!#*^'
     password = Password(value)
     password.power = 0
@@ -111,7 +121,8 @@ def test_no_big_letters_in_password():
 
 
 def test_special_char_in_password():
-    #TODO: docstring
+    """Special character in password ok test"""
+
     value = '^abcdefABCD123'
     password = Password(value)
     password.power = 0
@@ -123,7 +134,8 @@ def test_special_char_in_password():
 
 
 def test_no_special_char_in_password():
-    #TODO: docstring
+    """Special character in password ok test"""
+
     value = 'abcdefABCD123'
     password = Password(value)
     password.power = 0
