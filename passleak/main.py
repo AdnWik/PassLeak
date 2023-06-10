@@ -1,5 +1,6 @@
-from verifier import Verifier
+"""PassLeak main"""
+from password_validator import PasswordValidator
 
-Verifier.load_passwords()
-Verifier.check_passwords()
-print(Verifier.show_all_passwords())
+PasswordValidator.load_passwords()
+PasswordValidator.validate()
+print(PasswordValidator.show_all_passwords())

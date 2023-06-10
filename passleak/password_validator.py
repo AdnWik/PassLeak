@@ -1,9 +1,18 @@
 """Verifier class"""
+from abc import ABC, abstractmethod
 import re
 from password import Password
 
 
-class Verifier:
+class PasswordValidatorInterface(ABC):
+    """Password validator interface"""
+
+    @abstractmethod
+    def validate():
+        """Validate method"""
+
+
+class PasswordValidator(PasswordValidatorInterface):
     """Verifier abstract"""
 
     passwords = []
@@ -17,7 +26,7 @@ class Verifier:
                 cls.passwords.append(Password(password))
 
     @classmethod
-    def check_passwords(cls) -> None:
+    def validate(cls) -> None:
         """Verification of password requirements and leaks """
 
         for password in cls.passwords:

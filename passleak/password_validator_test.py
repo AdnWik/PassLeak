@@ -1,13 +1,13 @@
 from password import Password
-from verifier import Verifier
+from password_validator import PasswordValidator
 
 
 def test_password_ok():
     """Good password test"""
     value = '#123adcABC^'
     password = Password(value)
-    Verifier.passwords.append(password)
-    Verifier.check_passwords()
+    PasswordValidator.passwords.append(password)
+    PasswordValidator.validate()
 
     score = password.power
 
@@ -19,7 +19,7 @@ def test_length_ok_password():
     value = 'Ab1#@!0c'
     password = Password(value)
     password.power = 0
-    Verifier.check_length(password)
+    PasswordValidator.check_length(password)
 
     score = password.power
 
@@ -31,7 +31,7 @@ def test_too_short_password():
     value = '!1cB'
     password = Password(value)
     password.power = 0
-    Verifier.check_length(password)
+    PasswordValidator.check_length(password)
 
     score = password.power
 
@@ -43,7 +43,7 @@ def test_digit_in_password():
     value = 'abcd1ABCDEF!#*^'
     password = Password(value)
     password.power = 0
-    Verifier.check_digit(password)
+    PasswordValidator.check_digit(password)
 
     score = password.power
 
@@ -55,7 +55,7 @@ def test_no_digit_in_password():
     value = 'abcdABCDEF!#*^'
     password = Password(value)
     password.power = 0
-    Verifier.check_digit(password)
+    PasswordValidator.check_digit(password)
 
     score = password.power
 
@@ -67,7 +67,7 @@ def test_small_letters_in_password():
     value = 'aABCDEF123!#*^'
     password = Password(value)
     password.power = 0
-    Verifier.check_letters(password)
+    PasswordValidator.check_letters(password)
 
     score = password.power
 
@@ -79,7 +79,7 @@ def test_no_small_letters_in_password():
     value = 'ABCDEF123!#*^'
     password = Password(value)
     password.power = 0
-    Verifier.check_letters(password)
+    PasswordValidator.check_letters(password)
 
     score = password.power
 
@@ -91,7 +91,7 @@ def test_big_letters_in_password():
     value = 'Babcdef123!#*^'
     password = Password(value)
     password.power = 0
-    Verifier.check_letters(password)
+    PasswordValidator.check_letters(password)
 
     score = password.power
 
@@ -103,7 +103,7 @@ def test_no_big_letters_in_password():
     value = 'abcdef123!#*^'
     password = Password(value)
     password.power = 0
-    Verifier.check_letters(password)
+    PasswordValidator.check_letters(password)
 
     score = password.power
 
@@ -115,7 +115,7 @@ def test_special_char_in_password():
     value = '^abcdefABCD123'
     password = Password(value)
     password.power = 0
-    Verifier.check_special_char(password)
+    PasswordValidator.check_special_char(password)
 
     score = password.power
 
@@ -127,7 +127,7 @@ def test_no_special_char_in_password():
     value = 'abcdefABCD123'
     password = Password(value)
     password.power = 0
-    Verifier.check_special_char(password)
+    PasswordValidator.check_special_char(password)
 
     score = password.power
 
