@@ -13,3 +13,4 @@ def password_test():
     assert score.password == value
     assert score.power is None
     assert score.leaked is None
+    assert score.hash is None

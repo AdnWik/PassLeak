@@ -7,6 +7,7 @@ class Password:
         self.password = password
         self.power = None
         self.leaked = None
+        self.hash = None
 
     def __repr__(self) -> str:
         return (f'Password: {self.password} Power: {self.power}'
@@ -14,4 +15,4 @@ class Password:
 
     def __str__(self) -> str:
         return (f'Password: {self.password:<20} Power: {self.power}'
-                f'  Leaked: {self.leaked}')
+                f'  Leaked: {self.leaked} Hash: {self.hash}')

@@ -144,3 +144,30 @@ def test_no_special_char_in_password():
     score = password.power
 
     assert score == 0
+
+
+def test_ok_password_hash():
+    """A"""
+
+    value = 'AbCdef12#$%'
+    hash_value = 'a4f945c5f511c12831e135de2846fda16378ba3d'
+    password = Password(value)
+    password.power = 4
+    PasswordValidator.hash_password(password)
+
+    score = password.hash
+
+    assert score == hash_value
+
+
+def test_nok_password_hash():
+    """A"""
+
+    value = 'abcdef12#$%'
+    password = Password(value)
+    password.power = 3
+    PasswordValidator.hash_password(password)
+
+    score = password.hash
+
+    assert score is None

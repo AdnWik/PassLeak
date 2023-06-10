@@ -1,6 +1,8 @@
 """Verifier class"""
 from abc import ABC, abstractmethod
 import re
+from hashlib import sha1
+from urllib import request
 from password import Password
 
 
@@ -35,6 +37,8 @@ class PasswordValidator(PasswordValidatorInterface):
             cls.check_digit(password)
             cls.check_letters(password)
             cls.check_special_char(password)
+            cls.hash_password(password)
+            #cls.check_for_leaks(password)
 
     @classmethod
     def show_all_passwords(cls) -> str:
@@ -80,3 +84,19 @@ class PasswordValidator(PasswordValidatorInterface):
         special_char = value_split.symmetric_difference(value_no_special_char)
         if len(special_char) > 1:
             password.power += 1
+
+    @staticmethod
+    def hash_password(password: object) -> None:
+        """Create password hash"""
+        if password.power == 4:
+            _hash = sha1(password.password.encode(encoding='UTF-8'))
+            password.hash = _hash.hexdigest()
+
+    #TODO:
+    @staticmethod
+    def check_for_leaks(password: object) -> None:
+        """Check password in haveibeenpawned.com"""
+        if password.hash is not None:
+            _hash_first_five = password.hash[:5]
+            url = 'https://api.pwnedpasswords.com/range/' + _hash_first_five
+            #print(url)
