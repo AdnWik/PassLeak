@@ -93,19 +93,25 @@ class PasswordValidator(PasswordValidatorInterface):
             h.update(password.password.encode(encoding='UTF-8'))
             password.hash = h.hexdigest()
 
-    #TODO:
     @staticmethod
     def check_for_leaks(password: object) -> None:
-        """Check password in haveibeenpawned.com"""
+        """Check password in haveibeenpawned.com and
+           set password.leaked flag"""
         if password.hash is not None:
-            _hash_first_five = password.hash[:5]
-            url = 'https://api.pwnedpasswords.com/range/' + _hash_first_five
-            with get(url) as content:
-                    hash_list = [tuple(row.split(':'))
-                           for row in content.text.splitlines()]
-            for hash, leaked in hash_list:
-                    
-                    print('\n')
-                    print(f'{hash} | {leaked}')
-                    print(f'{password.hash[:5:-1].upper()}')
+            hash_prefix = password.hash[:5]
+            hash_suffix = password.hash[5:].upper()
+            url = 'https://api.pwnedpasswords.com/range/' + hash_prefix
 
+            with get(url, timeout=2000) as content:
+                response_hash_dict = {value.split(':')[0]: value.split(':')[1]
+                                      for value in content.text.splitlines()}
+
+            if hash_suffix in response_hash_dict:
+                password.leaked = True
+            else:
+                password.leaked = False
+
+    #TODO:
+    @staticmethod
+    def save_safety_password(password: object) -> None:
+        pass

@@ -4,3 +4,4 @@
 /passleak/__pycache__
 /passleak/passwords.txt
 /passleak/safety.txt
+/passleak/test.py
