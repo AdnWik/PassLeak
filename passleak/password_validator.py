@@ -2,7 +2,7 @@
 from abc import ABC, abstractmethod
 import re
 from hashlib import sha1
-from urllib import request
+from requests import get
 from password import Password
 
 
@@ -38,7 +38,7 @@ class PasswordValidator(PasswordValidatorInterface):
             cls.check_letters(password)
             cls.check_special_char(password)
             cls.hash_password(password)
-            #cls.check_for_leaks(password)
+            cls.check_for_leaks(password)
 
     @classmethod
     def show_all_passwords(cls) -> str:
@@ -89,8 +89,9 @@ class PasswordValidator(PasswordValidatorInterface):
     def hash_password(password: object) -> None:
         """Create password hash"""
         if password.power == 4:
-            _hash = sha1(password.password.encode(encoding='UTF-8'))
-            password.hash = _hash.hexdigest()
+            h = sha1()
+            h.update(password.password.encode(encoding='UTF-8'))
+            password.hash = h.hexdigest()
 
     #TODO:
     @staticmethod
@@ -99,4 +100,12 @@ class PasswordValidator(PasswordValidatorInterface):
         if password.hash is not None:
             _hash_first_five = password.hash[:5]
             url = 'https://api.pwnedpasswords.com/range/' + _hash_first_five
-            #print(url)
+            with get(url) as content:
+                    hash_list = [tuple(row.split(':'))
+                           for row in content.text.splitlines()]
+            for hash, leaked in hash_list:
+                    
+                    print('\n')
+                    print(f'{hash} | {leaked}')
+                    print(f'{password.hash[:5:-1].upper()}')
+
