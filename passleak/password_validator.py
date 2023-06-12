@@ -28,6 +28,17 @@ class PasswordValidator(PasswordValidatorInterface):
                 cls.passwords.append(Password(password))
 
     @classmethod
+    def save_safety_password(cls) -> None:
+        """Save validated passwords in safety.txt file"""
+        _safe_passwords = [f'Password: {password.password}'
+                           f' Strength: {password.power}\n'
+                           for password in cls.passwords
+                           if password.power == 4 and password.leaked is False]
+
+        with open('safety.txt', 'w', encoding='UTF-8')as file:
+            file.writelines(_safe_passwords)
+
+    @classmethod
     def validate(cls) -> None:
         """Verification of password requirements and leaks """
 
@@ -110,8 +121,3 @@ class PasswordValidator(PasswordValidatorInterface):
                 password.leaked = True
             else:
                 password.leaked = False
-
-    #TODO:
-    @staticmethod
-    def save_safety_password(password: object) -> None:
-        pass
