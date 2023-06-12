@@ -15,4 +15,4 @@ class Password:
 
     def __str__(self) -> str:
         return (f'Password: {self.password:<20} Power: {self.power}'
-                f'  Leaked: {self.leaked} Hash: {self.hash}')
+                f'  Leaked: {str(self.leaked):<5}  Hash: {self.hash}')
