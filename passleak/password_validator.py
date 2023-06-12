@@ -49,6 +49,12 @@ class PasswordValidator(PasswordValidatorInterface):
             cls.check_letters(password)
             cls.check_special_char(password)
             cls.hash_password(password)
+
+    @classmethod
+    def validate_leaks(cls) -> None:
+        """Verification of password requirements and leaks """
+
+        for password in cls.passwords:
             cls.check_for_leaks(password)
 
     @classmethod
@@ -100,9 +106,9 @@ class PasswordValidator(PasswordValidatorInterface):
     def hash_password(password: object) -> None:
         """Create password hash"""
         if password.power == 4:
-            h = sha1()
-            h.update(password.password.encode(encoding='UTF-8'))
-            password.hash = h.hexdigest()
+            _hash = sha1()
+            _hash.update(password.password.encode(encoding='UTF-8'))
+            password.hash = _hash.hexdigest()
 
     @staticmethod
     def check_for_leaks(password: object) -> None:

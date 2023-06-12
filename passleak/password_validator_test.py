@@ -147,6 +147,7 @@ def test_no_special_char_in_password():
 
 
 def test_ok_password_hash():
+    # TODO:
     """A"""
 
     value = 'AbCdef12#$%'
@@ -161,6 +162,7 @@ def test_ok_password_hash():
 
 
 def test_nok_password_hash():
+    # TODO:
     """A"""
 
     value = 'abcdef12#$%'
@@ -171,3 +173,40 @@ def test_nok_password_hash():
     score = password.hash
 
     assert score is None
+
+
+def test_ok_hash_request(requests_mock):
+    # TODO:
+    """TEST"""
+    value = 'Z!mnaWod@1'
+    password = Password(value)
+    PasswordValidator.passwords.append(password)
+    PasswordValidator.validate()
+    hash_prefix = password.hash[:5]
+    data = 'FEF38B22EE3082835F327AF955164AB06D3:4\nFEC7160D0224BE8279A13A7F582C757E4A9:1'
+    url = 'https://api.pwnedpasswords.com/range/' + hash_prefix
+    requests_mock.get(url, text=data)
+    PasswordValidator.check_for_leaks(password)
+
+    score = password.leaked
+
+    assert score is False
+
+
+def test_nok_hash_request(requests_mock):
+    # TODO:
+    """TEST"""
+    value = 'Z!mnaWod@1'
+    password = Password(value)
+    PasswordValidator.passwords.append(password)
+    PasswordValidator.validate()
+    hash_prefix = password.hash[:5]
+    hash_suffix = password.hash[5:].upper()
+    data = f'FEF38B22EE3082835F327AF955164AB06D3:4\n{hash_suffix}:1'
+    url = 'https://api.pwnedpasswords.com/range/' + hash_prefix
+    requests_mock.get(url, text=data)
+    PasswordValidator.check_for_leaks(password)
+
+    score = password.leaked
+
+    assert score is True
