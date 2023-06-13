@@ -147,8 +147,7 @@ def test_no_special_char_in_password():
 
 
 def test_ok_password_hash():
-    # TODO:
-    """A"""
+    """Test generate hash for validate password"""
 
     value = 'AbCdef12#$%'
     hash_value = 'a4f945c5f511c12831e135de2846fda16378ba3d'
@@ -162,8 +161,7 @@ def test_ok_password_hash():
 
 
 def test_nok_password_hash():
-    # TODO:
-    """A"""
+    """Test generate hash for not validate password"""
 
     value = 'abcdef12#$%'
     password = Password(value)
@@ -176,8 +174,9 @@ def test_nok_password_hash():
 
 
 def test_ok_hash_request(requests_mock):
-    # TODO:
-    """TEST"""
+    """Check password hash in requested data
+       (password hash not in requested data)"""
+
     value = 'Z!mnaWod@1'
     password = Password(value)
     PasswordValidator.passwords.append(password)
@@ -194,8 +193,9 @@ def test_ok_hash_request(requests_mock):
 
 
 def test_nok_hash_request(requests_mock):
-    # TODO:
-    """TEST"""
+    """Check password hash in requested data
+       (password hash in requested data)"""
+
     value = 'Z!mnaWod@1'
     password = Password(value)
     PasswordValidator.passwords.append(password)
