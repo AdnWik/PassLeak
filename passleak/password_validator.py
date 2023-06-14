@@ -1,4 +1,5 @@
 """Verifier class"""
+import logging
 from abc import ABC, abstractmethod
 import re
 from hashlib import sha1
@@ -18,12 +19,13 @@ class PasswordValidator(PasswordValidatorInterface):
     """Verifier abstract"""
 
     passwords = []
+    path = 'passleak/'
 
     @classmethod
     def load_passwords(cls) -> None:
         """Load passwords from passwords.txt"""
 
-        with open('passwords.txt', 'r', encoding='utf-8') as file:
+        with open(cls.path + 'passwords.txt', 'r', encoding='utf-8') as file:
             for password in file.read().split('\n'):
                 cls.passwords.append(Password(password))
 
@@ -35,7 +37,7 @@ class PasswordValidator(PasswordValidatorInterface):
                            for password in cls.passwords
                            if password.power == 4 and password.leaked is False]
 
-        with open('safety.txt', 'w', encoding='UTF-8')as file:
+        with open(cls.path + 'safety.txt', 'w', encoding='UTF-8')as file:
             file.writelines(_safe_passwords)
 
     @classmethod
@@ -61,7 +63,7 @@ class PasswordValidator(PasswordValidatorInterface):
     def show_all_passwords(cls) -> str:
         """Show all loaded passwords"""
 
-        message = ''
+        message = '\n'
         for password in cls.passwords:
             message += f'{password}\n'
         return message
