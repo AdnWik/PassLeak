@@ -11,7 +11,7 @@ class PasswordValidatorInterface(ABC):
     """Password validator interface"""
 
     @abstractmethod
-    def validate():
+    def validate(self):
         """Validate method"""
 
 
@@ -129,9 +129,9 @@ class PasswordValidator(PasswordValidatorInterface):
                 password.leaked = True
             else:
                 password.leaked = False
-            
+
             with open(PasswordValidator.path + 'log.txt', 'a', encoding='UTF-8') as file:
-                
+
                 log = (f'Request: {password.password} '
                             f'Status code: {content.status_code} '
                             f'Leaked: {password.leaked}'
